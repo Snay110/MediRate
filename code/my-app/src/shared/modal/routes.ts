@@ -1,16 +1,20 @@
-import "react-router-dom"
+import "react-router-dom";
 
 export const ROUTES = {
   HOME: "/",
-  LOGIN: "/login",
-  REGISTER: "/register",
-  BOARDS: "/boards",
-  BOARD: "/boards/:boardId",
+  DOCTORS: "/doctors",
+  DOCTOR: "/doctor:id",
+  CLINICS: "/clinics",
+  CLINIC: "/clinic:id",
+  ADD_REVIEW: "doctor:id/add-review",
 } as const;
 
 export type PathParams = {
-  [ROUTES.BOARD]: {
-    boardId: string;
+  [ROUTES.DOCTOR]: {
+    id: string;
+  };
+  [ROUTES.CLINIC]: {
+    id: string;
   };
 };
 

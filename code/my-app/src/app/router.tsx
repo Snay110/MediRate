@@ -23,9 +23,10 @@ export const router = createBrowserRouter([
         lazy: () => import("@/features/header"),
       },
       {
-          path: ROUTES.BOARD,
-          loader:() =>redirect(ROUTES.BOARDS)
-      }
+        path: ROUTES.BOARD,
+        loader: () => redirect(ROUTES.BOARDS),
+      },
     ],
   },
-]);eslint.boundaries.js
+]);
+eslint.boundaries.js;
