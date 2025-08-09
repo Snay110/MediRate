@@ -7,26 +7,26 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: ROUTES.BOARD,
+        path: ROUTES.DOCTOR,
         lazy: () => import("@/features/auth"),
       },
       {
-        path: ROUTES.BOARD,
+        path: ROUTES.DOCTOR,
         lazy: () => import("@/features/board"),
       },
       {
-        path: ROUTES.BOARD,
+        path: ROUTES.DOCTOR,
         lazy: () => import("@/features/boards-list"),
       },
       {
-        path: ROUTES.BOARD,
+        path: ROUTES.DOCTOR,
         lazy: () => import("@/features/header"),
       },
       {
-        path: ROUTES.BOARD,
-        loader: () => redirect(ROUTES.BOARDS),
+        path: ROUTES.DOCTOR,
+        loader: () => redirect(ROUTES.CLINIC),
       },
     ],
   },
 ]);
-eslint.boundaries.js;
+

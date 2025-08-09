@@ -13,9 +13,6 @@ export type PathParams = {
   [ROUTES.DOCTOR]: {
     id: string;
   };
-  [ROUTES.CLINIC]: {
-    id: string;
-  };
 };
 
 declare module "react-router-dom" {
