@@ -4,8 +4,8 @@ import AppHeader from "@/features/header";
 function App() {
   return (
     <>
-     <AppHeader/>
-     <Outlet/>
+      <AppHeader />
+      <Outlet />
     </>
   );
 }

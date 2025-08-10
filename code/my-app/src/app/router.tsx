@@ -1,4 +1,4 @@
-import { ROUTES } from "@/shared/modal/routes";
+import { ROUTES } from "@/shared/model/routes";
 import App from "./App";
 import { createBrowserRouter, redirect } from "react-router-dom";
 
@@ -8,19 +8,19 @@ export const router = createBrowserRouter([
     children: [
       {
         path: ROUTES.DOCTOR,
-        lazy: () => import("@/features/auth"),
+        lazy: () => import("@/app/pages/doctor/doctor.pages"),
       },
       {
         path: ROUTES.DOCTOR,
-        lazy: () => import("@/features/board"),
+        lazy: () => import("@/app/pages/doctor-details/details.pages"),
       },
       {
         path: ROUTES.DOCTOR,
-        lazy: () => import("@/features/boards-list"),
+        lazy: () => import("@/app/pages/home/home.pages"),
       },
       {
         path: ROUTES.DOCTOR,
-        lazy: () => import("@/features/header"),
+        lazy: () => import("@/app/pages/doctor-details/add-review/add-review.pages"),
       },
       {
         path: ROUTES.DOCTOR,
@@ -29,4 +29,3 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-

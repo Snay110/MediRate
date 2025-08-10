@@ -3,10 +3,10 @@ import "react-router-dom";
 export const ROUTES = {
   HOME: "/",
   DOCTORS: "/doctors",
-  DOCTOR: "/doctor:id",
+  DOCTOR: "/doctors/:id",
   CLINICS: "/clinics",
-  CLINIC: "/clinic:id",
-  ADD_REVIEW: "doctor:id/add-review",
+  CLINIC: "/clinics/:id",
+  ADD_REVIEW: "/doctors/:id/add-review",
 } as const;
 
 export type PathParams = {
