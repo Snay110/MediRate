@@ -6,4 +6,4 @@ export default function HomePages() {
   );
 }
 
-export const Component = HomePages
+export const Component = HomePages;

@@ -28,5 +28,9 @@
       "@/*": ["src/*"]
     }
   },
-  "include": ["src", "../../api", "src/app/pages/doctor-details/add-review/add-review.pages.tsx"]
+  "include": [
+    "src",
+    "../../api",
+    "src/app/pages/doctor-details/add-review/add-review.pages.tsx"
+  ]
 }

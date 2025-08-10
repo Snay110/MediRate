@@ -6,4 +6,4 @@ export default function DoctorPages() {
   );
 }
 
-export const Component = DoctorPages
+export const Component = DoctorPages;

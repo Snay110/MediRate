@@ -20,7 +20,8 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.DOCTOR,
-        lazy: () => import("@/app/pages/doctor-details/add-review/add-review.pages"),
+        lazy: () =>
+          import("@/app/pages/doctor-details/add-review/add-review.pages"),
       },
       {
         path: ROUTES.DOCTOR,
