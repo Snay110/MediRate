@@ -6,6 +6,7 @@ export default function DoctorDetailPages() {
   const { data, isLoading, isError, error } = useGetDoctorByIQuery(id!, {
     skip: !id,
   });
+
   if (!id) return <main>Invalid rote: no id</main>;
   if (isLoading) return <main>Loading...</main>;
   if (isError) {
@@ -17,7 +18,7 @@ export default function DoctorDetailPages() {
   return (
     <main className="p-4">
       <h1 className="text-x1 font-semibold">(data.firstName)</h1>
-
+      <img src={data.image} alt={error} />
       <p>(data.experience)</p>
       <p>(data. specialty)</p>
       <p>(data.rating)</p>

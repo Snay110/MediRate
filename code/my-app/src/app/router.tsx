@@ -4,8 +4,13 @@ import { createBrowserRouter, redirect } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
+    path: "/",
     element: <App />,
     children: [
+      {
+        index: true,
+        lazy: () => import("@/app/pages/home/home.pages"),
+      },
       {
         path: ROUTES.DOCTOR,
         lazy: () => import("@/app/pages/doctor/doctor.pages"),
@@ -13,10 +18,6 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DOCTOR,
         lazy: () => import("@/app/pages/doctor-details/details.pages"),
-      },
-      {
-        path: ROUTES.DOCTOR,
-        lazy: () => import("@/app/pages/home/home.pages"),
       },
       {
         path: ROUTES.DOCTOR,
