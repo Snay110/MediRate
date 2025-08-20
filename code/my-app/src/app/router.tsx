@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
         lazy: () => import("@/app/pages/home/home.pages"),
       },
       {
-        path: ROUTES.DOCTOR,
+        path: ROUTES.DOCTORS,
         lazy: () => import("@/app/pages/doctor/doctor.pages"),
       },
       {
@@ -20,13 +20,13 @@ export const router = createBrowserRouter([
         lazy: () => import("@/app/pages/doctor-details/details.pages"),
       },
       {
-        path: ROUTES.DOCTOR,
+        path: ROUTES.ADD_REVIEW,
         lazy: () =>
           import("@/app/pages/doctor-details/add-review/add-review.pages"),
       },
       {
-        path: ROUTES.DOCTOR,
-        loader: () => redirect(ROUTES.CLINIC),
+        path: ROUTES.CLINIC,
+        loader: () => redirect(ROUTES.CLINICS),
       },
     ],
   },

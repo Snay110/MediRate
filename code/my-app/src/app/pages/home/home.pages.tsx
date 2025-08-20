@@ -1,12 +1,12 @@
 import { useNavigate, Link } from "react-router-dom";
-
+import { ROUTES } from "@/shared/model/routes";
 export default function HomePages() {
   const navigate = useNavigate();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     // сделать валидацию
-    navigate("/doctors");
+    navigate(ROUTES.DOCTORS);
   };
 
   return (
@@ -86,7 +86,7 @@ export default function HomePages() {
             to="/signup"
             className="font-semibold text-indigo-400 hover:text-indigo-300"
           >
-            Start a 14 day free trial
+            Register
           </Link>
         </p>
       </div>
