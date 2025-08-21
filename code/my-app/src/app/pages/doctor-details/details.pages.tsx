@@ -19,9 +19,11 @@ export default function DoctorDetailPages() {
     <main className="p-4">
       <h1 className="text-x1 font-semibold">(data.firstName)</h1>
       <img src={data.image} alt={error} />
+
       <p>(data.experience)</p>
-      <p>(data. specialty)</p>
+      <p>(data.speciality)</p>
       <p>(data.rating)</p>
+      <p>(data.description)</p>
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import { baseApi } from "@/shared/api/baseApi";
 
-export type Doctors = {
+export type Doctor= {
   id: string;
   Fristname: string; //ФИО
   speciality: string; //Специализация
@@ -13,16 +13,15 @@ export type Doctors = {
 export const doctorApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getDoctors: build.query<Doctor[], void>({
-      query: () => "doctor",
-      query: () => "doctors",
+      query: () => "",
     }),
 
     getDoctorByI: build.query<Doctor, string>({
-      query: (id) => `doctors/${id}`,
-      query: (id) => `doctors/${id}`,
+      query: (id) => `/${id}`,
     }),
   }),
   overrideExisting: false,
 });
 
 export const { useGetDoctorsQuery } = doctorApi;
+export const { useGetDoctorByIQuery} = doctorApi;

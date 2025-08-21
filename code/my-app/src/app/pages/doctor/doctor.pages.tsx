@@ -41,7 +41,7 @@ export default function DoctorPages() {
                     ? d.image
                     : "https://via.placeholder.com/150"
                 }
-                alt={d.Fristname}
+                alt={"Doctor"}
                 className="size-12 flex-none rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
               />
               <div className="min-w-0 flex-auto">
