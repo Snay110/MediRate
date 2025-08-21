@@ -13,7 +13,7 @@ export type Doctor= {
 export const doctorApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getDoctors: build.query<Doctor[], void>({
-      query: () => "",
+      query: () => ""
     }),
 
     getDoctorByI: build.query<Doctor, string>({
