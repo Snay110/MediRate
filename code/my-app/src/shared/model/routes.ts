@@ -7,6 +7,8 @@ export const ROUTES = {
   CLINICS: "/clinics",
   CLINIC: "/clinics/:id",
   ADD_REVIEW: "/doctors/:id/add-review",
+  SIGNUP: "/signup",
+  FORGOT: "/forgot",
 } as const;
 
 export type PathParams = {

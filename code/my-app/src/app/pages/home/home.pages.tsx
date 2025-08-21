@@ -1,11 +1,12 @@
 import { useNavigate, Link } from "react-router-dom";
 import { ROUTES } from "@/shared/model/routes";
-export default function HomePages() {
+
+export default function HomePage() {
   const navigate = useNavigate();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    // сделать валидацию
+    // TODO:сделать валидацию
     navigate(ROUTES.DOCTORS);
   };
 
@@ -53,7 +54,7 @@ export default function HomePages() {
               </label>
               <div className="text-sm">
                 <Link
-                  to="/forgot"
+                  to={ROUTES.FORGOT}
                   className="font-semibold text-indigo-400 hover:text-indigo-300"
                 >
                   Forgot password?
@@ -83,7 +84,7 @@ export default function HomePages() {
         <p className="mt-10 text-center text-sm text-gray-400">
           Not a member?{" "}
           <Link
-            to="/signup"
+            to={ROUTES.SIGNUP}
             className="font-semibold text-indigo-400 hover:text-indigo-300"
           >
             Register
@@ -94,4 +95,4 @@ export default function HomePages() {
   );
 }
 
-export const Component = HomePages;
+export const Component = HomePage;

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetDoctorsQuery } from "@/shared/api/doctorApi";
 import type { Doctor } from "@/shared/api/doctorApi";
 
-export default function DoctorPages() {
+export default function DoctorPage() {
   const { data, isLoading, isError, error } = useGetDoctorsQuery();
   const navigate = useNavigate();
 
@@ -20,25 +20,25 @@ export default function DoctorPages() {
   return (
     <main className="p-6 bg-gray-900 min-h-screen">
       <ul role="list" className="divide-y divide-gray-800">
-        {data.map((d: Doctor) => (
+        {data.map((item: Doctor) => (
           <li
-            key={d.id}
+            key={item.id}
             className="flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-800/40 rounded-xl px-4 transition"
             role="button"
             tabIndex={0}
-            onClick={() => navigate(`/doctors/${d.id}`)}
+            onClick={() => navigate(`/doctors/${item.id}`)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                navigate(`/doctors/${d.id}`);
+                navigate(`/doctors/${item.id}`);
               }
             }}
           >
             <div className="flex min-w-0 gap-x-4">
               <img
                 src={
-                  d.image.startsWith("http")
-                    ? d.image
+                  item.image.startsWith("http")
+                    ? item.image
                     : "https://via.placeholder.com/150"
                 }
                 alt={"Doctor"}
@@ -46,17 +46,17 @@ export default function DoctorPages() {
               />
               <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold text-white">
-                  {d.Fristname}
+                  {item.firstName}
                 </p>
                 <p className="mt-1 truncate text-xs text-gray-400">
-                  {d.speciality}
+                  {item.speciality}
                 </p>
               </div>
             </div>
             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm text-white">⭐ {d.rating}</p>
+              <p className="text-sm text-white">⭐ {item.rating}</p>
               <p className="mt-1 text-xs text-gray-400">
-                {d.experience} years exp
+                {item.experience} years exp
               </p>
             </div>
           </li>
@@ -66,4 +66,4 @@ export default function DoctorPages() {
   );
 }
 
-export const Component = DoctorPages;
+export const Component = DoctorPage;

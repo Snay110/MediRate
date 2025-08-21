@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetDoctorByIQuery } from "@/shared/api/doctorApi";
 
-export default function DoctorDetailPages() {
+export default function DoctorDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading, isError, error } = useGetDoctorByIQuery(id!, {
     skip: !id,
@@ -28,4 +28,4 @@ export default function DoctorDetailPages() {
   );
 }
 
-export const Component = DoctorDetailPages;
+export const Component = DoctorDetailPage;
