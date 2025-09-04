@@ -2,12 +2,12 @@ import { baseApi } from "@/shared/api/baseApi";
 
 export type Doctor = {
   id: string;
-  firstName: string; //ФИО
-  speciality: string; //Специализация
-  rating: number; //Рейтинг
-  experience: number; //Опыт работы
-  image: string; //путь к изображению врача
-  description: string; // Био. для карточки и диталей
+  firstName: string;
+  speciality: string;
+  rating: number;
+  experience: number;
+  image: string;
+  description: string;
 };
 
 export const doctorApi = baseApi.injectEndpoints({
