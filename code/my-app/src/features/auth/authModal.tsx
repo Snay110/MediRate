@@ -14,22 +14,24 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
   }
 
   return (
-    <main className="min-h-svh flex flex-col justify-center px-6 py-12 lg:px-8 bg-gray-900">
-      <div>
-        <h2>{mode === "signin" ? "Login" : "Register"}</h2>
-        <button
-          className="absolute top-2 right-2 text-2xl text-gray-700 hover:text-red-500"
-          type="button"
-          onClick={onClose}
-        >
-          ❌
-        </button>
-      </div>
+    <main className=" flex flex-col justify-center  lg:px-12 bg-zinc-900 bg-clip-padding rounded-xl">
+      <h2 className="text-white text-2xl font-bold mb-4 px-1 flex justify-center ">
+        {mode === "signin" ? "Login" : "Register"}
+      </h2>
+
+      <button
+        className="absolute top-5 right-5 text-2xl hover:text-red-500 "
+        type="button"
+        onClick={onClose}
+      >
+        ❌
+      </button>
+
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
           alt="Your Company"
-          className="mx-auto h-10 w-auto"
+          className="mx-auto h-12 w-auto"
         />
         <h2 className="mt-10 text-center text-2xl leading-9 font-bold tracking-tight text-white">
           {mode === "signin"
@@ -54,7 +56,10 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
                 name="email"
                 required
                 autoComplete="email"
-                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm"
+                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base
+                 text-white outline outline-1 -outline-offset-1 outline-white/10
+                  placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2
+                 focus:outline-indigo-500 sm:text-sm"
               />
             </div>
           </div>
@@ -83,14 +88,19 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
                 name="password"
                 required
                 autoComplete="current-password"
-                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm"
+                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base
+                 text-white outline outline-1 -outline-offset-1 outline-white/10
+                  placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2
+                   focus:outline-indigo-500 sm:text-sm"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            className="flex w-full justify-center rounded-md bg-indigo-500 px-6 py-1.5 text-sm font-semibold
+             text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2
+              focus-visible:outline-indigo-500"
           >
             {mode === "signin" ? "Sign in" : "Register"}
           </button>
