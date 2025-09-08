@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetDoctorByIQuery } from "@/shared/api/doctorApi";
+import { useGetDoctorByIQuery } from "@/features/auth/api/doctorApi";
 import { ROUTES } from "@/shared/model/routes";
 import { useNavigate } from "react-router-dom";
 

@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/model/routes";
+import { useState } from "react";
+import { signUp, signIn } from "@/shared/lib/supabaseAuth";
 
 interface AuthModalProps {
   mode: "signin" | "signup";
@@ -7,115 +9,127 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ mode, onClose }: AuthModalProps) {
-  function handleSubmit(event: React.FormEvent) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    // Handle form submission logic here
-    onClose();
+    setError(null);
+    setLoading(true);
+
+    try {
+      if (mode === "signup") {
+        await signUp(email, password);
+        console.log("Sign-up successful");
+      } else {
+        await signIn(email, password);
+      }
+      onClose(); // Закрываем только после успеха
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Failed to authenticate");
+      }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <main className=" flex flex-col justify-center  lg:px-12 bg-zinc-900 bg-clip-padding rounded-xl">
-      <h2 className="text-white text-2xl font-bold mb-4 px-1 flex justify-center ">
-        {mode === "signin" ? "Login" : "Register"}
-      </h2>
-
+    <main className="relative flex flex-col justify-center px-8 py-10 bg-white rounded-xl shadow-lg sm:mx-auto sm:w-full sm:max-w-md">
       <button
-        className="absolute top-5 right-5 text-2xl hover:text-red-500 "
+        className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500"
         type="button"
         onClick={onClose}
       >
         ❌
       </button>
 
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <h2 className="text-gray-900 text-2xl font-bold mb-6 text-center">
+        {mode === "signin" ? "Login" : "Register"}
+      </h2>
+
+      {/* Лого */}
+      <div className="flex justify-center mb-6">
         <img
           src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
           alt="Your Company"
-          className="mx-auto h-12 w-auto"
+          className="h-12 w-auto"
         />
-        <h2 className="mt-10 text-center text-2xl leading-9 font-bold tracking-tight text-white">
-          {mode === "signin"
-            ? "Sign in to your account"
-            : "Create your account"}
-        </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm leading-6 font-medium text-gray-100"
-            >
-              Email address
-            </label>
-            <div className="mt-2">
-              <input
-                id="email"
-                type="email"
-                name="email"
-                required
-                autoComplete="email"
-                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base
-                 text-white outline outline-1 -outline-offset-1 outline-white/10
-                  placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2
-                 focus:outline-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm leading-6 font-medium text-gray-100"
-              >
-                Password
-              </label>
-              <div className="text-sm">
-                <Link
-                  to={ROUTES.FORGOT}
-                  className="font-semibold text-indigo-400 hover:text-indigo-300"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-            </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                type="password"
-                name="password"
-                required
-                autoComplete="current-password"
-                className="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base
-                 text-white outline outline-1 -outline-offset-1 outline-white/10
-                  placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2
-                   focus:outline-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="flex w-full justify-center rounded-md bg-indigo-500 px-6 py-1.5 text-sm font-semibold
-             text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2
-              focus-visible:outline-indigo-500"
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700"
           >
-            {mode === "signin" ? "Sign in" : "Register"}
-          </button>
-        </form>
+            Email address
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            autoComplete="email"
+            className="block w-full border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
 
-        <p className="mt-10 text-center text-sm text-gray-400">
+        <div>
+          <div className="flex items-center justify-between">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Password
+            </label>
+            {mode === "signin" && (
+              <Link
+                to={ROUTES.FORGOT}
+                className="text-sm font-semibold text-indigo-500 hover:text-indigo-400"
+              >
+                Forgot password?
+              </Link>
+            )}
+          </div>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            autoComplete="current-password"
+            className="block w-full border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm"
+          />
+        </div>
+
+        {error && <p className="text-red-600 text-sm">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex w-full justify-center rounded-md bg-indigo-500 px-6 py-2 text-sm font-semibold text-white hover:bg-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {loading ? "Loading..." : mode === "signin" ? "Sign in" : "Register"}
+        </button>
+      </form>
+
+      {mode === "signin" && (
+        <p className="mt-6 text-center text-sm text-gray-500">
           Not a member?{" "}
           <Link
             to={ROUTES.SIGNUP}
-            className="font-semibold text-indigo-400 hover:text-indigo-300"
+            className="font-semibold text-indigo-500 hover:text-indigo-400"
           >
             Register
           </Link>
         </p>
-      </div>
+      )}
     </main>
   );
 }

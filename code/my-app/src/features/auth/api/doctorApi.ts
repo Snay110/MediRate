@@ -1,4 +1,4 @@
-import { baseApi } from "@/shared/api/baseApi";
+import { baseApi } from "@/features/auth/api/baseApi";
 
 export type Doctor = {
   id: string;
