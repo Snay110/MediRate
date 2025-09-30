@@ -1,3 +1,5 @@
+
+
 export function AboutSection() {
   return (
     <section className="container mx-auto px-6 py-16 grid md:grid-cols-3 gap-8">

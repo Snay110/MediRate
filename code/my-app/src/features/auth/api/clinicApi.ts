@@ -1,4 +1,4 @@
-import { baseApi } from "@/features/auth/api/baseApi";
+import { baseApi } from "@/features/auth/api/doctorListApi";
 
 export const clinicApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
