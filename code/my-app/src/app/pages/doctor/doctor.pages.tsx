@@ -1,48 +1,41 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import { PopularDoctors } from "@/shared/ui/popularDoctors";
-import { getDoctors } from "@/features/auth/api/doctorListApi";
+import useSWR from "swr";
 import type { Doctor } from "@/features/auth/api/doctorListApi";
+import { useNavigate } from "react-router-dom";
+import { getDoctors } from "@/features/auth/api/doctorListApi";
 
 export default function DoctorPage() {
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
+  const {
+    data: doctors = [],
+    error,
+    isLoading,
+  } = useSWR<Doctor[]>("doctors", getDoctors);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const data = await getDoctors();
-        setDoctors(data);
-      } catch (err: unknown) {
-        if(err instanceof Error)
-        setError(err.message ?? "Failed to fetch doctors");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchDoctors();
-  }, []);
-
-  if (loading) {
-    return <main className="p-6 text-center text-lg text-gray-600">Загрузка...</main>;
+  if (isLoading) {
+    return (
+      <main className="p-6 text-center text-lg text-gray-600">Loading...</main>
+    );
   }
 
   if (error) {
-    return <main className="p-6 text-center text-lg text-red-500">Ошибка: {error}</main>;
+    return (
+      <main className="p-6 text-center text-lg text-red-500">
+        Error: {error}
+      </main>
+    );
   }
 
   if (!doctors.length) {
-    return <main className="p-6 text-center text-lg text-gray-400">Доктор не найден</main>;
+    return (
+      <main className="p-6 text-center text-lg text-gray-400">
+        No doctors found
+      </main>
+    );
   }
-
   return (
-    <main className="p-6">
-      <h1 className="mb-6 text-2xl font-bold text-gray-800">Популярные врачи</h1>
-      <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <main className="p-6 bg-gray-100 ">
+      <h1 className="mb-6 text2x1  font-bold text-gray-800">Popular doctors</h1>
+      <ul className="display  grid bg-gray-100 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {doctors.map((item) => (
           <li
             key={item.id}
@@ -57,22 +50,24 @@ export default function DoctorPage() {
               }
             }}
           >
-         
-
-            <div className="mt-4">
+            <div className="mt-6 rounded-md">
               <img
                 src={item.image}
-                alt={item.firstName}
-                className="h-32 w-full rounded-xl object-cover transition group-hover:scale-105"
+                alt={item.first_name}
+                className="h-42 w-full rounded-xl object-cover transition group-hover:scale-105"
               />
               <h2 className="mt-3 text-lg font-semibold text-gray-900">
-                {item.firstName}
+                {item.first_name}
               </h2>
               <p className="text-sm text-gray-500">{item.specialty}</p>
-              <p className="mt-2 text-sm text-gray-700 line-clamp-2">{item.description}</p>
+              <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                {item.description}
+              </p>
               <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
                 <span>⭐ {item.rating}</span>
-                <span>{item.experience} лет опыта</span>
+                <span className="underline">
+                  {item.experience} Years of experience
+                </span>
               </div>
             </div>
           </li>

@@ -2,7 +2,7 @@ import { supabase } from "@/shared/lib/supabase";
 
 export interface Doctor {
   id: string;
-  firstName: string;
+  first_name: string;
   specialty: string;
   experience: number;
   rating: number;

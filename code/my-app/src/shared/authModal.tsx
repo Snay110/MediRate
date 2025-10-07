@@ -22,7 +22,6 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
     try {
       if (mode === "signup") {
         await signUp(email, password);
-        console.log("Эмилия, ты молодец!");
       } else {
         await signIn(email, password);
       }
@@ -111,8 +110,8 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
             {loading
               ? "Loading..."
               : mode === "signin"
-              ? "Sign in"
-              : "Register"}
+                ? "Sign in"
+                : "Register"}
           </button>
         </form>
       </section>

@@ -1,7 +1,7 @@
 import { ROUTES } from "@/shared/model/routes";
 import { Link } from "react-router-dom";
 import { Modal } from "@/shared/modal";
-import { AuthModal } from "@/features/auth/authModal";
+import { AuthModal } from "@/shared/authModal";
 import { useState } from "react";
 
 export default function AppHeader() {
