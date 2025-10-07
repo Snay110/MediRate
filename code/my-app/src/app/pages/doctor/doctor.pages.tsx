@@ -1,31 +1,47 @@
+import useSWR from "swr";
+import type { Doctor } from "@/features/auth/api/doctorListApi";
 import { useNavigate } from "react-router-dom";
-import { useGetDoctorsQuery } from "@/shared/api/doctorApi";
-import type { Doctor } from "@/shared/api/doctorApi";
+import { getDoctors } from "@/features/auth/api/doctorListApi";
 
 export default function DoctorPage() {
-  const { data, isLoading, isError, error } = useGetDoctorsQuery();
+  const {
+    data: doctors = [],
+    error,
+    isLoading,
+  } = useSWR<Doctor[]>("doctors", getDoctors);
   const navigate = useNavigate();
 
-  if (isLoading) return <main className="p-4 text-white">Loading...</main>;
-  if (isError) {
-    const err = error as { status?: number; data?: unknown };
+  if (isLoading) {
     return (
-      <main className="p-4 text-red-500">
-        Error: {err.status ?? JSON.stringify(err)}
+      <main className="p-6 text-center text-lg text-gray-600">Loading...</main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="p-6 text-center text-lg text-red-500">
+        Error: {error}
       </main>
     );
   }
-  if (!data) return <main className="p-4 text-gray-400">Not found</main>;
 
+  if (!doctors.length) {
+    return (
+      <main className="p-6 text-center text-lg text-gray-400">
+        No doctors found
+      </main>
+    );
+  }
   return (
-    <main className="p-6 bg-gray-900 min-h-screen">
-      <ul role="list" className="divide-y divide-gray-800">
-        {data.map((item: Doctor) => (
+    <main className="p-6 bg-gray-100 ">
+      <h1 className="mb-6 text2x1  font-bold text-gray-800">Popular doctors</h1>
+      <ul className="display  grid bg-gray-100 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {doctors.map((item) => (
           <li
             key={item.id}
-            className="flex justify-between gap-x-6 py-5 cursor-pointer hover:bg-gray-800/40 rounded-xl px-4 transition"
             role="button"
             tabIndex={0}
+            className="group cursor-pointer rounded-2xl bg-white p-4 shadow-md transition hover:shadow-lg"
             onClick={() => navigate(`/doctors/${item.id}`)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -34,30 +50,25 @@ export default function DoctorPage() {
               }
             }}
           >
-            <div className="flex min-w-0 gap-x-4">
+            <div className="mt-6 rounded-md">
               <img
-                src={
-                  item.image.startsWith("http")
-                    ? item.image
-                    : "https://via.placeholder.com/150"
-                }
-                alt={"Doctor"}
-                className="size-12 flex-none rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
+                src={item.image}
+                alt={item.first_name}
+                className="h-42 w-full rounded-xl object-cover transition group-hover:scale-105"
               />
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold text-white">
-                  {item.firstName}
-                </p>
-                <p className="mt-1 truncate text-xs text-gray-400">
-                  {item.speciality}
-                </p>
-              </div>
-            </div>
-            <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-              <p className="text-sm text-white">⭐ {item.rating}</p>
-              <p className="mt-1 text-xs text-gray-400">
-                {item.experience} years exp
+              <h2 className="mt-3 text-lg font-semibold text-gray-900">
+                {item.first_name}
+              </h2>
+              <p className="text-sm text-gray-500">{item.specialty}</p>
+              <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                {item.description}
               </p>
+              <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
+                <span>⭐ {item.rating}</span>
+                <span className="underline">
+                  {item.experience} Years of experience
+                </span>
+              </div>
             </div>
           </li>
         ))}
