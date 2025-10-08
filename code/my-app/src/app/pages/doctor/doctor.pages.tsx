@@ -2,8 +2,9 @@ import useSWR from "swr";
 import type { Doctor } from "@/features/auth/api/doctorListApi";
 import { useNavigate } from "react-router-dom";
 import { getDoctors } from "@/features/auth/api/doctorListApi";
+import { DoctorCard } from "@/features/doctorCard/doctorCard";
 
-export default function DoctorPage() {
+export function DoctorPage() {
   const {
     data: doctors = [],
     error,
@@ -50,26 +51,7 @@ export default function DoctorPage() {
               }
             }}
           >
-            <div className="mt-6 rounded-md">
-              <img
-                src={item.image}
-                alt={item.first_name}
-                className="h-42 w-full rounded-xl object-cover transition group-hover:scale-105"
-              />
-              <h2 className="mt-3 text-lg font-semibold text-gray-900">
-                {item.first_name}
-              </h2>
-              <p className="text-sm text-gray-500">{item.specialty}</p>
-              <p className="mt-2 text-sm text-gray-700 line-clamp-2">
-                {item.description}
-              </p>
-              <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
-                <span>⭐ {item.rating}</span>
-                <span className="underline">
-                  {item.experience} Years of experience
-                </span>
-              </div>
-            </div>
+            <DoctorCard doctor={item} />
           </li>
         ))}
       </ul>

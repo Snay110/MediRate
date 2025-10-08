@@ -8,6 +8,7 @@ export interface Doctor {
   rating: number;
   image: string;
   description: string;
+  price: number;
 }
 
 export const getDoctors = async (): Promise<Doctor[]> => {
