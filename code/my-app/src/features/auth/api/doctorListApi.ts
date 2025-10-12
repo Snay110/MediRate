@@ -44,8 +44,10 @@ export const getReviews = async (
     .from("reviews")
     .select("*")
     .eq("doctor_id", doctorId)
-    .order("created_at", { ascending: false })
-    .limit(10);
-  if (error) throw error;
+    .order("created_at", { ascending: false });
+  if (error) {
+    console.error("error login review");
+    return null;
+  }
   return data;
 };

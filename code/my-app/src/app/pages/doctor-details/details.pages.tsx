@@ -33,7 +33,7 @@ export default function DoctorDetailPage() {
   return (
     <>
       <HeaderDetails doctor={doctor} />
-      <main className="bg-gray-50 min-h-screen  p-12 ">
+      <main className="bg-gray-150 min-h-screen  p-12 ">
         <section className="max-w-xl mx-auto mt-6 p-8 bg-white rounded-lg shadow-xl border">
           <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
@@ -74,8 +74,8 @@ export default function DoctorDetailPage() {
               />
             </div>
           </div>
-          <DoctorReviews doctorId={id} />
         </section>
+        <DoctorReviews id={id!} />
       </main>
     </>
   );

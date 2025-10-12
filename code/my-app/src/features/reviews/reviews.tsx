@@ -1,41 +1,37 @@
-import { getReviews } from "../auth/api/doctorListApi";
+import { getReviews } from "@/features/auth/api/doctorListApi";
 import useSWR from "swr";
-import type { Review } from "../auth/api/doctorListApi";
-import { useParams } from "react-router-dom";
+import type { Review } from "@/features/auth/api/doctorListApi";
 
-export function DoctorReviews({ doctorId }: { doctorId: string }) {
-  const { id } = useParams<{ id: string }>();
+export function DoctorReviews({ id }: { id: string }) {
+  if (!id) return <div>No doctor ID provided</div>;
+
   const {
     data: reviews,
     error,
     isLoading,
-  } = useSWR<Review[] | null>(id ? ["reviews", id] : null, () =>
-    getReviews(id!),
-  );
+  } = useSWR<Review[] | null>(["reviews", id], () => getReviews(id));
 
-  if (!id) return <main>Invalid rote: no id</main>;
-  if (isLoading) return <main>Loading...</main>;
-  if (error) {
-    const err = error as { status?: number; data?: unknown };
-    return <main>Error: {err.status ?? JSON.stringify(err)}</main>;
-  }
-  if (!reviews) return <main>Not found</main>;
+  if (isLoading) return <div>Loading reviews...</div>;
+  if (error) return <div>Error loading reviews</div>;
+  if (!reviews || reviews.length === 0) return <div>No reviews yet.</div>;
+
   return (
-    <main>
-      <section>
-        {reviews.map((review) => (
-          <div key={review.id} className="mb-4 p-4 bg-white rounded shadow">
-            <div className="font-semibold text-sm text-gray-700">
-              {review.user_name} — {review.rating} ⭐️
-            </div>
-
-            <p className="text-gray-600 text-sm">{review.comment}</p>
-            <span className="text-xs text-gray-400">
-              {new Date(review.created_at).toLocaleDateString()}
-            </span>
+    <section className="mt-6">
+      <h1 className="flex justify-center p-6 text-4xl text-gray-800 ">
+        {" "}
+        Ratings and reviews
+      </h1>
+      {reviews.map((review) => (
+        <div key={review.id} className="mb-4 p-4 bg-gray-50 rounded shadow">
+          <div className="font-semibold text-sm text-gray-700">
+            {review.user_name} — {review.rating} ⭐️
           </div>
-        ))}
-      </section>
-    </main>
+          <p className="text-gray-600 text-sm">{review.comment}</p>
+          <span className="text-xs text-gray-400">
+            {new Date(review.created_at).toLocaleDateString()}
+          </span>
+        </div>
+      ))}
+    </section>
   );
 }
