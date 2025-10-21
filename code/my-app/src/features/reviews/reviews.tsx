@@ -16,13 +16,9 @@ export function DoctorReviews({ id }: { id: string }) {
   if (!reviews || reviews.length === 0) return <div>No reviews yet.</div>;
 
   return (
-    <section className="mt-6">
-      <h1 className="flex justify-center p-6 text-4xl text-gray-800 ">
-        {" "}
-        Ratings and reviews
-      </h1>
+    <section className="mt-6 max-w-xl mx-auto  bg-white ">
       {reviews.map((review) => (
-        <div key={review.id} className="mb-4 p-4 bg-gray-50 rounded shadow">
+        <div key={review.id} className="mb-4 p-4 bg-gray-100 rounded shadow">
           <div className="font-semibold text-sm text-gray-700">
             {review.user_name} — {review.rating} ⭐️
           </div>

@@ -13,6 +13,7 @@ export interface Doctor {
 export interface Review {
   id: string;
   doctor_id: string;
+  user_id: string;
   user_name: string;
   rating: number;
   comment: string;

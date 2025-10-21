@@ -3,8 +3,11 @@ import type { Doctor } from "@/features/auth/api/doctorListApi";
 import { useNavigate } from "react-router-dom";
 import { getDoctors } from "@/features/auth/api/doctorListApi";
 import { DoctorCard } from "@/features/doctorCard/doctorCard";
+import { useParams } from "react-router-dom";
 
 export function DoctorPage() {
+  const { id } = useParams<{ id: string }>();
+  console.log("id", id);
   const {
     data: doctors = [],
     error,
@@ -34,7 +37,7 @@ export function DoctorPage() {
     );
   }
   return (
-    <main className="p-6 bg-gray-100 ">
+    <main className="p-6 bg-gray-50 ">
       <h1 className="mb-6 text2x1  font-bold text-gray-800">Popular doctors</h1>
       <ul className="display  grid bg-gray-100 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {doctors.map((item) => (
@@ -42,7 +45,7 @@ export function DoctorPage() {
             key={item.id}
             role="button"
             tabIndex={0}
-            className="group cursor-pointer rounded-2xl bg-white p-4 shadow-md transition hover:shadow-lg"
+            className="group cursor-pointer rounded-2xl  p-4 shadow-md transition hover:shadow-lg"
             onClick={() => navigate(`/doctors/${item.id}`)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
