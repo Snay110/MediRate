@@ -5,8 +5,9 @@ import { mutate } from "swr";
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
 
-export function useAddReviews(doctorId:string) {
+export function useAddReviews(doctorId: string) {
   const { id: doctor_id } = useParams<{ id: string }>();
+  console.log("Nice ID", doctorId);
 
   async function postReviews(comment: string) {
     const user_id = await getUserId();
@@ -30,7 +31,7 @@ export function useAddReviews(doctorId:string) {
       console.error("request failed", response.status, errorText);
       return;
     }
-    mutate(`reviews-doctor${doctor_id}`);
+    mutate(["reviews", doctor_id]);
     let result;
     try {
       result = await response.json();

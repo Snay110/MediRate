@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAddReviews } from "@/features/auth/api/reviews/hooksPostReviews/usePostReviews";
 import { useParams } from "react-router-dom";
 
-export function InputReviews({doctorId}:{doctorId:string}) {
+export function InputReviews({ doctorId }: { doctorId: string }) {
   const [comment, setComment] = useState("");
   const addReviews = useAddReviews(doctorId);
   const { id: doctor_id } = useParams<{ id: string }>();
@@ -31,7 +31,7 @@ export function InputReviews({doctorId}:{doctorId:string}) {
         />
         <button
           type="submit"
-          className="flex-1 bg-gray-100 hover:bg-gray-200 rounded-lg p-4 border border-gray-600 text-gray-700 py-2 font-medium text-sm"
+          className="flex-1  bg-gray-100 hover:bg-gray-200 rounded-lg p-4 border border-gray-600 text-gray-700 py-2 font-medium text-sm"
         >
           Book Appointment
         </button>
