@@ -60,10 +60,9 @@ export default function DoctorDetailPage() {
               />
             </div>
           </div>
-
-          <InputReviews doctorId={id!} />
-          <DoctorReviews id={id!} />
         </section>
+        <InputReviews doctorId={id!} />
+        <DoctorReviews id={id!} />
       </main>
     </>
   );
