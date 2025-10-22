@@ -3,6 +3,7 @@ import useSWR from "swr";
 import type { Review } from "@/features/auth/api/doctorListApi";
 import { useState } from "react";
 import { ReviewList } from "./reviewsList";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function DoctorReviews({ id }: { id: string }) {
   const [visibleCount, setVisibleCount] = useState(5);
@@ -34,15 +35,32 @@ export function DoctorReviews({ id }: { id: string }) {
     );
 
   return (
-    <section className="mt-6 max-w-xl mx-auto  bg-white ">
-      {reviews.slice(0, visibleCount).map((review) => (
-        <div key={review.id} className="mb-4 p-4 bg-gray-100 rounded shadow">
-          <ReviewList review={review!} />
-        </div>
-      ))}
+    <section className="mt-6 max-w-xl mx-auto flex flex-col   bg-white ">
+      <AnimatePresence>
+        {reviews.slice(0, visibleCount).map((review, index) => (
+          <motion.div
+            key={review.id}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{
+              duration: 0.4,
+              ease: [0.25, 0.1, 0.25, 1],
+              delay: index * 0.05,
+            }}
+            className="mb-4 p-4 bg-gray-100 rounded shadow"
+          >
+            <ReviewList review={review!} />
+          </motion.div>
+        ))}
+      </AnimatePresence>
 
       {visibleCount < reviews.length && (
-        <button onClick={() => setVisibleCount(visibleCount + 10)}>
+        <button
+          className="ml-auto items-end px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700
+               text-white text-sm font-medium transition-colors"
+          onClick={() => setVisibleCount(visibleCount + 10)}
+        >
           More...
         </button>
       )}
