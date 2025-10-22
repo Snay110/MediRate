@@ -1,8 +1,11 @@
 import { getReviews } from "@/features/auth/api/doctorListApi";
 import useSWR from "swr";
 import type { Review } from "@/features/auth/api/doctorListApi";
+import { useState } from "react";
+import { ReviewList } from "./reviewsList";
 
 export function DoctorReviews({ id }: { id: string }) {
+  const [visibleCount, setVisibleCount] = useState(5);
   if (!id) return <div>No doctor ID provided</div>;
 
   const {
@@ -11,23 +14,38 @@ export function DoctorReviews({ id }: { id: string }) {
     isLoading,
   } = useSWR<Review[] | null>(["reviews", id], () => getReviews(id));
 
-  if (isLoading) return <div>Loading reviews...</div>;
-  if (error) return <div>Error loading reviews</div>;
-  if (!reviews || reviews.length === 0) return <div>No reviews yet.</div>;
+  if (isLoading)
+    return (
+      <div className="flex min-h-[200px] justify-center items-center">
+        Loading reviews...
+      </div>
+    );
+  if (error)
+    return (
+      <div className="flex min-h-[200px] justify-center items-center">
+        Error loading reviews
+      </div>
+    );
+  if (!reviews || reviews.length === 0)
+    return (
+      <div className="flex min-h-[200px] justify-center items-center">
+        No reviews yet.
+      </div>
+    );
 
   return (
     <section className="mt-6 max-w-xl mx-auto  bg-white ">
-      {reviews.map((review) => (
+      {reviews.slice(0, visibleCount).map((review) => (
         <div key={review.id} className="mb-4 p-4 bg-gray-100 rounded shadow">
-          <div className="font-semibold text-sm text-gray-700">
-            {review.user_name} — {review.rating} ⭐️
-          </div>
-          <p className="text-gray-600 text-sm">{review.comment}</p>
-          <span className="text-xs text-gray-400">
-            {new Date(review.created_at).toLocaleDateString()}
-          </span>
+          <ReviewList review={review!} />
         </div>
       ))}
+
+      {visibleCount < reviews.length && (
+        <button onClick={() => setVisibleCount(visibleCount + 10)}>
+          More...
+        </button>
+      )}
     </section>
   );
 }
