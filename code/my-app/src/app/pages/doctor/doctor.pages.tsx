@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getDoctors } from "@/features/auth/api/doctorListApi";
 import { DoctorCard } from "@/features/doctorCard/doctorCard";
 import { useParams } from "react-router-dom";
+import { Footer } from "@/shared/ui/footer";
 
 export function DoctorPage() {
   const { id } = useParams<{ id: string }>();
@@ -58,6 +59,7 @@ export function DoctorPage() {
           </li>
         ))}
       </ul>
+      <Footer />
     </main>
   );
 }

@@ -3,8 +3,9 @@ import { getDoctorById } from "@/features/auth/api/doctorListApi";
 import type { Doctor } from "@/features/auth/api/doctorListApi";
 import useSWR from "swr";
 import { DoctorReviews } from "@/features/reviews/reviews";
-import { InputReviews } from "@/features/reviews/inputReviews";
+import { InputReviews } from "@/features/auth/api/reviews/inputReviews";
 import { AboutDoctor } from "@/shared/ui/componentDoctorDetails/aboutDoctor";
+import { Footer } from "@/shared/ui/footer";
 
 export default function DoctorDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -50,6 +51,7 @@ export default function DoctorDetailPage() {
         <AboutDoctor doctor={doctor!} />
         <InputReviews doctorId={id!} />
         <DoctorReviews id={id!} />
+        <Footer />
       </main>
     </>
   );

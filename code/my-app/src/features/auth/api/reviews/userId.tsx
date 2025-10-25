@@ -9,3 +9,11 @@ export async function getUserId(): Promise<string | null> {
 
   return session.user.id;
 }
+
+export async function userToken() {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const token = session?.access_token;
+  return token;
+}

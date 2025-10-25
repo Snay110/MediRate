@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ROUTES } from "@/shared/model/routes";
 import { useState } from "react";
-import { signUp, signIn } from "@/shared/lib/supabaseAuth";
+import { userSignUp } from "./lib/supabaseAuth";
 
 interface AuthModalProps {
   mode: "signin" | "signup";
@@ -21,7 +21,7 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
 
     try {
       if (mode === "signup") {
-        await signUp(email, password);
+        await userSignUp(email, password);
       } else {
         await signIn(email, password);
       }
