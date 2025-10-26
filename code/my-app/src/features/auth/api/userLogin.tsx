@@ -1,0 +1,32 @@
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
+const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
+
+export async function userLogin(email: string, password: string) {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      },
+    );
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Login failed", errorText);
+      return null;
+    }
+    const data = await response.json();
+    console.log("Logged in", data);
+    return data;
+  } catch (err) {
+    console.error("Network error", err);
+    return null;
+  }
+}

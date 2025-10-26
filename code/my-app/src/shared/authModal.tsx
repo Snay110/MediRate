@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
-import { ROUTES } from "@/shared/model/routes";
+// import { Link } from "react-router-dom";
+// import { ROUTES } from "@/shared/model/routes";
 import { useState } from "react";
-import { userSignUp } from "./lib/supabaseAuth";
+import { userRegister } from "../features/auth/api/userRegister";
+import { userLogin } from "@/features/auth/api/userLogin";
 
 interface AuthModalProps {
   mode: "signin" | "signup";
@@ -21,9 +22,9 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
 
     try {
       if (mode === "signup") {
-        await userSignUp(email, password);
+        await userRegister(email, password);
       } else {
-        await signIn(email, password);
+        await userLogin(email, password);
       }
       onClose(); // Закрываем только после успеха
     } catch (err: unknown) {
@@ -80,14 +81,14 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
               >
                 Password
               </label>
-              {mode === "signin" && (
+              {/* {mode === "signin" && (
                 <Link
                   to={ROUTES.FORGOT}
                   className="text-sm font-semibold text-indigo-500 hover:text-indigo-400"
                 >
                   Forgot password?
                 </Link>
-              )}
+              )} */}
             </div>
             <input
               id="password"
@@ -116,7 +117,7 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
         </form>
       </section>
 
-      {mode === "signin" && (
+      {/* {mode === "signin" && (
         <p className="mt-6 text-center text-sm text-gray-500">
           Not a member?{" "}
           <Link
@@ -126,7 +127,7 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
             Register
           </Link>
         </p>
-      )}
+      )} */}
     </main>
   );
 }

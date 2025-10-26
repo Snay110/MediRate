@@ -1,4 +1,4 @@
-import type { Review } from "../auth/api/doctorListApi";
+import type { Review } from "../doctorListApi";
 import { memo } from "react";
 
 export const ReviewList = memo(({ review }: { review: Review }) => {
