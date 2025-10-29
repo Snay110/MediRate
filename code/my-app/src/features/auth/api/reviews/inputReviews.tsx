@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAddReviews } from "@/features/auth/api/reviews/hooksPostReviews/usePostReviews";
+import { useAddReviews } from "@/features/auth/api/reviews/hooks/usePostReviews";
 import { useParams } from "react-router-dom";
 
 export function InputReviews({ doctorId }: { doctorId: string }) {

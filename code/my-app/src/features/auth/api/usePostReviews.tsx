@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { getUserId } from "../userId";
 import { mutate } from "swr";
+import { userToken } from "../../userToken";
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
@@ -10,12 +11,13 @@ export function useAddReviews(doctorId: string) {
   console.log("Nice ID", doctorId);
 
   async function postReviews(comment: string) {
+    const token = await userToken();
     const user_id = await getUserId();
     const response = await fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
       method: "POST",
       headers: {
         apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
 

@@ -1,19 +1,14 @@
-import useSWR from "swr";
-import type { Doctor } from "@/features/auth/api/doctorListApi";
 import { useNavigate } from "react-router-dom";
-import { getDoctors } from "@/features/auth/api/doctorListApi";
+import { useDoctor } from "@/features/auth/api/reviews/hooks/useDoctor";
 import { DoctorCard } from "@/features/doctorCard/doctorCard";
 import { useParams } from "react-router-dom";
 import { Footer } from "@/shared/ui/footer";
 
 export function DoctorPage() {
+  const { doctors, error, isLoading } = useDoctor();
   const { id } = useParams<{ id: string }>();
   console.log("id", id);
-  const {
-    data: doctors = [],
-    error,
-    isLoading,
-  } = useSWR<Doctor[]>("doctors", getDoctors);
+
   const navigate = useNavigate();
 
   if (isLoading) {
