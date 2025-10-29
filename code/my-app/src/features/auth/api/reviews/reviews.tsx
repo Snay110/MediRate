@@ -1,4 +1,4 @@
-import { getReviews } from "@/features/auth/api/doctorListApi";
+import { getReviews } from "./getReviews";
 import useSWR from "swr";
 import type { Review } from "@/features/auth/api/doctorListApi";
 import { useState } from "react";

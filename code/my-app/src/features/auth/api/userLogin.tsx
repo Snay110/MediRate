@@ -1,7 +1,10 @@
+import { userToken } from "./userToken";
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
 
 export async function userLogin(email: string, password: string) {
+  const token = userToken();
   try {
     const response = await fetch(
       `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
@@ -10,6 +13,7 @@ export async function userLogin(email: string, password: string) {
         headers: {
           apikey: SUPABASE_KEY,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           email,

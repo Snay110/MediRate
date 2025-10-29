@@ -20,14 +20,6 @@ export interface Review {
   created_at: string;
 }
 
-export const getDoctors = async (): Promise<Doctor[]> => {
-  const { data, error } = await supabase
-    .from<"doctors", Doctor>("doctors")
-    .select("*");
-  if (error) throw error;
-  return data ?? [];
-};
-
 export const getDoctorById = async (id: string): Promise<Doctor | null> => {
   const { data, error } = await supabase
     .from("doctors")
@@ -35,20 +27,5 @@ export const getDoctorById = async (id: string): Promise<Doctor | null> => {
     .eq("id", id)
     .single();
   if (error) throw error;
-  return data;
-};
-
-export const getReviews = async (
-  doctorId: string,
-): Promise<Review[] | null> => {
-  const { data, error } = await supabase
-    .from("reviews")
-    .select("*")
-    .eq("doctor_id", doctorId)
-    .order("created_at", { ascending: false });
-  if (error) {
-    console.error("error login review");
-    return null;
-  }
   return data;
 };
