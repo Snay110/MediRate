@@ -1,6 +1,6 @@
 import { HeroSection } from "@/shared/ui/heroSection";
 import { AboutSection } from "@/shared/ui/aboutSection";
-import { PopularDoctors } from "@/shared/ui/popularDoctors";
+import { PopularDoctor } from "@/features/doctorCard/popularDoctors";
 import { Footer } from "@/shared/ui/footer";
 
 export default function HomePage() {
@@ -8,7 +8,7 @@ export default function HomePage() {
     <main className="bg-gray-50 min-h-screen">
       <HeroSection />
       <AboutSection />
-      <PopularDoctors />
+      <PopularDoctor />
       <Footer />
     </main>
   );

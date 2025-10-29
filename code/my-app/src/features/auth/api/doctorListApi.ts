@@ -1,5 +1,4 @@
 import { supabase } from "@/shared/lib/supabase";
-
 export interface Doctor {
   id: string;
   first_name: string;
@@ -8,15 +7,18 @@ export interface Doctor {
   rating: number;
   image: string;
   description: string;
+  price: number;
 }
 
-export const getDoctors = async (): Promise<Doctor[]> => {
-  const { data, error } = await supabase
-    .from<"doctors", Doctor>("doctors")
-    .select("*");
-  if (error) throw error;
-  return data ?? [];
-};
+export interface Review {
+  id: string;
+  doctor_id: string;
+  user_id: string;
+  user_name: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+}
 
 export const getDoctorById = async (id: string): Promise<Doctor | null> => {
   const { data, error } = await supabase

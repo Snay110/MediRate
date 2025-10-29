@@ -1,6 +1,6 @@
 import { ROUTES } from "@/shared/model/routes";
 import App from "./App";
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
@@ -18,15 +18,6 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.DOCTOR,
         lazy: () => import("@/app/pages/doctor-details/details.pages"),
-      },
-      {
-        path: ROUTES.ADD_REVIEW,
-        lazy: () =>
-          import("@/app/pages/doctor-details/add-review/add-review.pages"),
-      },
-      {
-        path: ROUTES.CLINIC,
-        loader: () => redirect(ROUTES.CLINICS),
       },
     ],
   },

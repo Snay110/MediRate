@@ -1,14 +1,14 @@
-import useSWR from "swr";
-import type { Doctor } from "@/features/auth/api/doctorListApi";
 import { useNavigate } from "react-router-dom";
-import { getDoctors } from "@/features/auth/api/doctorListApi";
+import { useDoctor } from "@/features/auth/api/reviews/hooks/useDoctor";
+import { DoctorCard } from "@/features/doctorCard/doctorCard";
+import { useParams } from "react-router-dom";
+import { Footer } from "@/shared/ui/footer";
 
-export default function DoctorPage() {
-  const {
-    data: doctors = [],
-    error,
-    isLoading,
-  } = useSWR<Doctor[]>("doctors", getDoctors);
+export function DoctorPage() {
+  const { doctors, error, isLoading } = useDoctor();
+  const { id } = useParams<{ id: string }>();
+  console.log("id", id);
+
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -33,7 +33,7 @@ export default function DoctorPage() {
     );
   }
   return (
-    <main className="p-6 bg-gray-100 ">
+    <main className="p-6 bg-gray-50 ">
       <h1 className="mb-6 text2x1  font-bold text-gray-800">Popular doctors</h1>
       <ul className="display  grid bg-gray-100 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {doctors.map((item) => (
@@ -41,7 +41,7 @@ export default function DoctorPage() {
             key={item.id}
             role="button"
             tabIndex={0}
-            className="group cursor-pointer rounded-2xl bg-white p-4 shadow-md transition hover:shadow-lg"
+            className="group cursor-pointer rounded-2xl  p-4 shadow-md transition hover:shadow-lg"
             onClick={() => navigate(`/doctors/${item.id}`)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -50,29 +50,11 @@ export default function DoctorPage() {
               }
             }}
           >
-            <div className="mt-6 rounded-md">
-              <img
-                src={item.image}
-                alt={item.first_name}
-                className="h-42 w-full rounded-xl object-cover transition group-hover:scale-105"
-              />
-              <h2 className="mt-3 text-lg font-semibold text-gray-900">
-                {item.first_name}
-              </h2>
-              <p className="text-sm text-gray-500">{item.specialty}</p>
-              <p className="mt-2 text-sm text-gray-700 line-clamp-2">
-                {item.description}
-              </p>
-              <div className="mt-3 flex items-center justify-between text-sm text-gray-600">
-                <span>⭐ {item.rating}</span>
-                <span className="underline">
-                  {item.experience} Years of experience
-                </span>
-              </div>
-            </div>
+            <DoctorCard doctor={item} />
           </li>
         ))}
       </ul>
+      <Footer />
     </main>
   );
 }
