@@ -1,9 +1,6 @@
 import { DoctorCard } from "@/features/doctorCard/doctorCard";
 import { useDoctor } from "@/features/auth/api/reviews/hooks/useDoctor";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
-
 export function PopularDoctor() {
   const { doctors, error, isLoading } = useDoctor();
 

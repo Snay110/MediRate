@@ -3,7 +3,6 @@ import { getDoctorById } from "@/features/auth/api/doctorListApi";
 import type { Doctor } from "@/features/auth/api/doctorListApi";
 import useSWR from "swr";
 import { DoctorReviews } from "@/features/auth/api/reviews/reviews";
-import { InputReviews } from "@/features/auth/api/reviews/inputReviews";
 import { AboutDoctor } from "@/shared/ui/componentDoctorDetails/aboutDoctor";
 import { Footer } from "@/shared/ui/footer";
 
@@ -15,7 +14,7 @@ export default function DoctorDetailPage() {
     error,
     isLoading,
   } = useSWR<Doctor | null>(id ? ["doctor", id] : null, () =>
-    getDoctorById(id!),
+    getDoctorById({ id: id! }),
   );
 
   if (!id)
@@ -46,14 +45,11 @@ export default function DoctorDetailPage() {
     );
 
   return (
-    <>
-      <main className="bg-gray-150 min-h-screen  p-12 ">
-        <AboutDoctor doctor={doctor!} />
-        <InputReviews doctorId={id!} />
-        <DoctorReviews id={id!} />
-        <Footer />
-      </main>
-    </>
+    <main className="bg-gray-150 min-h-screen  p-12 ">
+      <AboutDoctor doctor={doctor!} />
+      <DoctorReviews id={id!} />
+      <Footer />
+    </main>
   );
 }
 

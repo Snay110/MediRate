@@ -2,11 +2,10 @@ import { ROUTES } from "@/shared/model/routes";
 import { Link } from "react-router-dom";
 import { Modal } from "@/shared/modal";
 import { AuthModal } from "@/shared/authModal";
-import { useState } from "react";
+import { useHeader } from "../auth/api/reviews/hooks/useHeader";
 
 export default function AppHeader() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const { isOpen, setIsOpen, mode, setMode } = useHeader();
   return (
     <header className="bg-gray-100  px-6 py-4 flex justify-between items-center">
       <h1 className="text-xl text-blue-900 font-bold">Doctor Reviews</h1>

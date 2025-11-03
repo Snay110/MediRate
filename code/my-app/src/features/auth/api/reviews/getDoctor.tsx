@@ -1,7 +1,6 @@
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
+import { SUPABASE_KEY, SUPABASE_URL } from "@/shared/lib/supabase";
 
-export async function FetchDoctor() {
+export async function fetchDoctor() {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/doctors?select=*`, {
     headers: {
       apikey: SUPABASE_KEY,

@@ -1,13 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useDoctor } from "@/features/auth/api/reviews/hooks/useDoctor";
 import { DoctorCard } from "@/features/doctorCard/doctorCard";
-import { useParams } from "react-router-dom";
 import { Footer } from "@/shared/ui/footer";
 
 export function DoctorPage() {
   const { doctors, error, isLoading } = useDoctor();
-  const { id } = useParams<{ id: string }>();
-  console.log("id", id);
 
   const navigate = useNavigate();
 
@@ -20,7 +17,7 @@ export function DoctorPage() {
   if (error) {
     return (
       <main className="p-6 text-center text-lg text-red-500">
-        Error: {error}
+        {/* Error: {error} */}
       </main>
     );
   }

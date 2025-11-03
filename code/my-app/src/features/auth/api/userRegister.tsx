@@ -1,6 +1,4 @@
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
-
+import { SUPABASE_KEY, SUPABASE_URL } from "@/shared/lib/supabase";
 export async function userRegister(email: string, password: string) {
   try {
     const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {

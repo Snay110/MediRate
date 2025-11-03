@@ -20,7 +20,11 @@ export interface Review {
   created_at: string;
 }
 
-export const getDoctorById = async (id: string): Promise<Doctor | null> => {
+export const getDoctorById = async ({
+  id,
+}: {
+  id: string;
+}): Promise<Doctor | null> => {
   const { data, error } = await supabase
     .from("doctors")
     .select<"*", Doctor>("*")

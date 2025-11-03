@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { FetchDoctor } from "../getDoctor";
+import { fetchDoctor } from "../getDoctor";
 import type { Doctor } from "../../doctorListApi";
 
 export function useDoctor() {
@@ -7,6 +7,6 @@ export function useDoctor() {
     data: doctors = [],
     error,
     isLoading,
-  } = useSWR<Doctor[]>("doctors", FetchDoctor);
+  } = useSWR<Doctor[]>("doctors", fetchDoctor);
   return { doctors, error, isLoading };
 }

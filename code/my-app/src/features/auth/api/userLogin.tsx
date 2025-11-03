@@ -1,9 +1,13 @@
 import { userToken } from "./userToken";
+import { SUPABASE_KEY, SUPABASE_URL } from "@/shared/lib/supabase";
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY as string;
-
-export async function userLogin(email: string, password: string) {
+export async function userLogin({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) {
   const token = userToken();
   try {
     const response = await fetch(
