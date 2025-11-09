@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
-import { getUserId } from "../userId";
+import { getUserId } from "./userId";
 import { mutate } from "swr";
-import { userToken } from "../../userToken";
+import { userToken } from "../userToken";
 import { SUPABASE_URL, SUPABASE_KEY } from "@/shared/lib/supabase";
 
-export function useAddReviews() {
+export function AddReviews() {
   const { id: doctor_id } = useParams<{ id: string }>();
 
-  async function postReviews(comment: string) {
+  async function postReviews(comment: string, full_name: string) {
     const token = await userToken();
     const user_id = await getUserId();
     const response = await fetch(`${SUPABASE_URL}}/rest/v1/reviews`, {
@@ -22,7 +22,7 @@ export function useAddReviews() {
         doctor_id,
         user_id,
         comment,
-        user_name: "Anonymous",
+        full_name,
       }),
     });
     if (!response.ok) {

@@ -14,9 +14,16 @@ export interface Review {
   id: string;
   doctor_id: string;
   user_id: string;
-  user_name: string;
+  full_name: string;
   rating: number;
   comment: string;
+  created_at: string;
+}
+export interface User {
+  id: string;
+  email: string;
+  full_name?: string;
+  avatar_url?: string;
   created_at: string;
 }
 

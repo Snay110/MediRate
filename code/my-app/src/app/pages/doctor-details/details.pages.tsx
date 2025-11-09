@@ -4,6 +4,7 @@ import type { Doctor } from "@/features/auth/api/doctorListApi";
 import useSWR from "swr";
 import { DoctorReviews } from "@/features/auth/api/reviews/reviews";
 import { AboutDoctor } from "@/shared/ui/componentDoctorDetails/aboutDoctor";
+import InputReviews from "@/shared/inputReviews";
 import { Footer } from "@/shared/ui/footer";
 
 export default function DoctorDetailPage() {
@@ -47,6 +48,7 @@ export default function DoctorDetailPage() {
   return (
     <main className="bg-gray-150 min-h-screen  p-12 ">
       <AboutDoctor doctor={doctor!} />
+      <InputReviews />
       <DoctorReviews id={id!} />
       <Footer />
     </main>

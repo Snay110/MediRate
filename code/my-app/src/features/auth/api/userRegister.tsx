@@ -1,7 +1,15 @@
 import { SUPABASE_KEY, SUPABASE_URL } from "@/shared/lib/supabase";
-export async function userRegister(email: string, password: string) {
+export async function userRegister({
+  email,
+  password,
+  full_name,
+}: {
+  email: string;
+  password: string;
+  full_name: string;
+}) {
   try {
-    const response = await fetch(`${SUPABASE_URL}/auth/v1/signup`, {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/users`, {
       method: "POST",
       headers: {
         apikey: SUPABASE_KEY,
@@ -11,6 +19,7 @@ export async function userRegister(email: string, password: string) {
       body: JSON.stringify({
         email,
         password,
+        full_name,
       }),
     });
 

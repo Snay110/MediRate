@@ -1,8 +1,8 @@
 // import { Link } from "react-router-dom";
 // import { ROUTES } from "@/shared/model/routes";
-import { useState } from "react";
 import { userRegister } from "../features/auth/api/userRegister";
 import { userLogin } from "@/features/auth/api/userLogin";
+import useAuthModal from "@/features/auth/api/reviews/hooks/useAuthModal";
 
 interface AuthModalProps {
   mode: "signin" | "signup";
@@ -10,10 +10,18 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ mode, onClose }: AuthModalProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    error,
+    setError,
+    loading,
+    setLoading,
+    full_name,
+    setFull_Name,
+  } = useAuthModal();
 
   async function handleSubmit(event: React.FormEvent) {
     event.preventDefault();
@@ -22,9 +30,9 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
 
     try {
       if (mode === "signup") {
-        await userRegister(email, password);
+        await userRegister({ email, password, full_name });
       } else {
-        await userLogin(email, password);
+        await userLogin({ email, password, full_name });
       }
       onClose(); // Закрываем только после успеха
     } catch (err: unknown) {
@@ -39,7 +47,7 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
   }
 
   return (
-    <main className="relative flex flex-col justify-center px-10 py-16 bg-white rounded-xl shadow-lg sm:mx-auto sm:w-full sm:max-w-md">
+    <main className="relative flex flex-col justify-center px-10 py-16  rounded-xl shadow-lg sm:mx-auto sm:w-full sm:max-w-md">
       <section>
         <button
           className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500"
@@ -55,6 +63,23 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
       </section>
       <section>
         <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="fullName"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Full Name
+            </label>
+            <input
+              id="fullName"
+              type="text"
+              value={full_name}
+              onChange={(e) => setFull_Name(e.target.value)}
+              required
+              autoComplete="fullName"
+              className="block w-full border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
           <div>
             <label
               htmlFor="email"

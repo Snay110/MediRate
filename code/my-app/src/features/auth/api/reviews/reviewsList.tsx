@@ -1,16 +1,41 @@
-import type { Review } from "../doctorListApi";
 import { memo } from "react";
 
-export const ReviewList = memo(({ review }: { review: Review }) => {
+import { useReviews } from "./hooks/useReviews";
+
+export const ReviewsList = memo(() => {
+  const { reviews, isLoading, error } = useReviews();
+
+  if (isLoading) {
+    return <p>Loading reviews...</p>;
+  }
+  if (error) {
+    return <p>Error loading reviews.</p>;
+  }
+
+  if (!reviews || reviews.length === 0) {
+    return <p>No reviews 11111.</p>;
+  }
+
   return (
-    <section>
-      <div className="font-semibold text-sm text-gray-700">
-        {review.user_name} — {review.rating} ⭐️
-      </div>
-      <p className="text-gray-600 text-sm">{review.comment}</p>
-      <span className="text-xs text-gray-400">
-        {new Date(review.created_at).toLocaleDateString()}
-      </span>
-    </section>
+    <ul className="flex flex-col gap-3 mt-4">
+      {reviews.map((review) => (
+        <li
+          key={review.id}
+          className="rounded-xl border border-gray-200 p-4 shadow-sm bg-white"
+        >
+          <div className="flex justify-between items-center">
+            <h4 className="font-semibold text-gray-800">{review.full_name}</h4>
+            <span className="text-yellow-500 font-medium">
+              ⭐ {review.rating}/5
+            </span>
+          </div>
+          {review.comment && (
+            <p className="text-gray-600 mt-2">{review.comment}</p>
+          )}
+        </li>
+      ))}
+    </ul>
   );
 });
+
+export default ReviewsList;

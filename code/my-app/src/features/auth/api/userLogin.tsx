@@ -4,9 +4,11 @@ import { SUPABASE_KEY, SUPABASE_URL } from "@/shared/lib/supabase";
 export async function userLogin({
   email,
   password,
+  full_name,
 }: {
   email: string;
   password: string;
+  full_name: string;
 }) {
   const token = userToken();
   try {
@@ -22,6 +24,7 @@ export async function userLogin({
         body: JSON.stringify({
           email,
           password,
+          full_name,
         }),
       },
     );
