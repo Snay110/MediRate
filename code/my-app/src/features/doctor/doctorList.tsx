@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { useDoctor } from "@/features/auth/api/reviews/hooks/useDoctor";
-import { DoctorCard } from "@/features/doctorCard/doctorCard";
+import { useDoctor } from "@/features/auth/api/hooks/useDoctor";
+import { DoctorCard } from "@/features/doctor/doctorCard";
 
 export function DoctorList() {
   const navigate = useNavigate();

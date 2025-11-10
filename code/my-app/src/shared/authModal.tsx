@@ -1,14 +1,13 @@
 // import { Link } from "react-router-dom";
 // import { ROUTES } from "@/shared/model/routes";
-import { userRegister } from "../features/auth/api/userRegister";
-import { userLogin } from "@/features/auth/api/userLogin";
-import useAuthModal from "@/features/auth/api/reviews/hooks/useAuthModal";
+import { userRegister } from "../features/auth/api/user/userRegister";
+import { userLogin } from "@/features/auth/api/user/userLogin";
+import useAuthModal from "@/features/auth/api/hooks/useAuthModal";
 
 interface AuthModalProps {
   mode: "signin" | "signup";
   onClose: () => void;
 }
-
 export function AuthModal({ mode, onClose }: AuthModalProps) {
   const {
     email,
@@ -27,46 +26,40 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
     event.preventDefault();
     setError(null);
     setLoading(true);
-
     try {
       if (mode === "signup") {
         await userRegister({ email, password, full_name });
       } else {
-        await userLogin({ email, password, full_name });
+        await userLogin({ email, password });
       }
-      onClose(); // Закрываем только после успеха
+      onClose();
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Failed to authenticate");
-      }
+      setError(err instanceof Error ? err.message : "Failed to authenticate");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <main className="relative flex flex-col justify-center px-10 py-16  rounded-xl shadow-lg sm:mx-auto sm:w-full sm:max-w-md">
-      <section>
-        <button
-          className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-red-500"
-          type="button"
-          onClick={onClose}
-        >
-          ❌
-        </button>
+    <main className=" flex flex-col justify-center px-10 py-12 backdrop-blur-xl border rounded-2xl shadow-xl sm:mx-auto sm:w-full sm:max-w-sm text-gray-900">
+      <button
+        className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
+        type="button"
+        onClick={onClose}
+      >
+        ✕
+      </button>
 
-        <h2 className="text-gray-900 text-2xl font-bold mb-6 text-center">
-          {mode === "signin" ? "Login" : "Register"}
-        </h2>
-      </section>
-      <section>
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <h2 className="text-3xl font-semibold text-center mb-8 tracking-tight">
+        {mode === "signin" ? "Welcome back" : "Create account"}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {mode === "signup" && (
           <div>
             <label
               htmlFor="fullName"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-600"
             >
               Full Name
             </label>
@@ -76,83 +69,58 @@ export function AuthModal({ mode, onClose }: AuthModalProps) {
               value={full_name}
               onChange={(e) => setFull_Name(e.target.value)}
               required
-              autoComplete="fullName"
-              className="block w-full border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm"
+              className="w-full mt-2 rounded-xl bg-gray-50 px-4 py-3 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+              placeholder="John Doe"
             />
           </div>
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email address
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              autoComplete="email"
-              className="block w-full border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
+        )}
 
-          <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              {/* {mode === "signin" && (
-                <Link
-                  to={ROUTES.FORGOT}
-                  className="text-sm font-semibold text-indigo-500 hover:text-indigo-400"
-                >
-                  Forgot password?
-                </Link>
-              )} */}
-            </div>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              className="block w-full border-b-2 border-gray-300 bg-transparent py-2 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-
-          {error && <p className="text-red-600 text-sm">{error}</p>}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="flex w-full justify-center rounded-md bg-indigo-500 px-6 py-2 text-sm font-semibold text-white hover:bg-indigo-400 disabled:opacity-50 disabled:cursor-not-allowed"
+        <div>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-600"
           >
-            {loading
-              ? "Loading..."
-              : mode === "signin"
-                ? "Sign in"
-                : "Register"}
-          </button>
-        </form>
-      </section>
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="w-full mt-2 rounded-xl bg-gray-50 px-4 py-3 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+            placeholder="you@example.com"
+          />
+        </div>
 
-      {/* {mode === "signin" && (
-        <p className="mt-6 text-center text-sm text-gray-500">
-          Not a member?{" "}
-          <Link
-            to={ROUTES.SIGNUP}
-            className="font-semibold text-indigo-500 hover:text-indigo-400"
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-600"
           >
-            Register
-          </Link>
-        </p>
-      )} */}
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full mt-2 rounded-xl bg-gray-50 px-4 py-3 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:outline-none transition-all"
+            placeholder="••••••••"
+          />
+        </div>
+
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full mt-4 rounded-full bg-indigo-500 py-3 font-semibold text-white hover:bg-indigo-400 active:scale-95 disabled:opacity-50 transition-all"
+        >
+          {loading ? "Loading..." : mode === "signin" ? "Sign in" : "Sign up"}
+        </button>
+      </form>
     </main>
   );
 }

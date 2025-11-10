@@ -1,5 +1,5 @@
 import { memo } from "react";
-import type { Doctor } from "../auth/api/doctorListApi";
+import type { Doctor } from "./doctorListApi";
 
 type Props = {
   doctor: Doctor;

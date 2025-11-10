@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { fetchDoctor } from "../getDoctor";
-import type { Doctor } from "../../doctorListApi";
+import { fetchDoctor } from "@/features/doctor/getDoctor";
+import type { Doctor } from "../../../doctor/doctorListApi";
 
 export function useDoctor() {
   const {

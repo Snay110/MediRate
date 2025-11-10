@@ -1,5 +1,5 @@
-import { DoctorCard } from "@/features/doctorCard/doctorCard";
-import { useDoctor } from "@/features/auth/api/reviews/hooks/useDoctor";
+import { DoctorCard } from "@/features/doctor/doctorCard";
+import { useDoctor } from "@/features/auth/api/hooks/useDoctor";
 
 export function PopularDoctor() {
   const { doctors, error, isLoading } = useDoctor();

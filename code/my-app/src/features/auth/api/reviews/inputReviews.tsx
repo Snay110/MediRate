@@ -1,4 +1,4 @@
-import { useInputReviews } from "@/features/auth/api/reviews/hooks/useInputReviews";
+import { useInputReviews } from "@/features/auth/api/hooks/useInputReviews";
 
 export default function InputReviews() {
   const { comment, setComment, handleSubmit } = useInputReviews();

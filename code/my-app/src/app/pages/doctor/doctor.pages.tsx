@@ -1,4 +1,4 @@
-import { DoctorList } from "@/features/doctorCard/doctorList";
+import { DoctorList } from "@/features/doctor/doctorList";
 import { Footer } from "@/shared/ui/footer";
 
 export function DoctorPage() {

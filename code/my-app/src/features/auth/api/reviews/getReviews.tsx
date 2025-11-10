@@ -1,5 +1,5 @@
 import { SUPABASE_KEY, SUPABASE_URL } from "@/shared/lib/supabase";
-import { userToken } from "../userToken";
+import { userToken } from "../user/userToken";
 
 export async function getReviews({ doctorId }: { doctorId: string }) {
   const token = await userToken();

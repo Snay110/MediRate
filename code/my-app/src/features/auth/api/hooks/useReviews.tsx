@@ -1,6 +1,6 @@
 import useSWR from "swr";
-import { getReviews } from "../getReviews";
-import type { Review } from "../../doctorListApi";
+import { getReviews } from "../reviews/getReviews";
+import type { Review } from "../../../doctor/doctorListApi";
 
 export function useReviews() {
   const {

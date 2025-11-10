@@ -6,16 +6,19 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
 export function Modal({ children, isOpen, onClose }: ModalProps) {
   if (!isOpen) return null;
+
   return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <button onClick={onClose} className="absolute inset-0 w-full h-full">
-        ❌
-      </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div
+        onClick={onClose}
+        className="absolute inset-0 w-full h-full cursor-pointer"
+      />
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative bg-white p-6 rounded shadow-lg z-10"
+        className="relative bg-white rounded-2xl shadow-xl p-8 w-full max-w-md mx-4"
       >
         {children}
       </div>

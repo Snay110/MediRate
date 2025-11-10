@@ -1,6 +1,6 @@
 import { getReviews } from "./getReviews";
 import useSWR from "swr";
-import type { Review } from "@/features/auth/api/doctorListApi";
+import type { Review } from "@/features/doctor/doctorListApi";
 import { useState } from "react";
 import ReviewsList from "./reviewsList";
 import { motion, AnimatePresence } from "framer-motion";

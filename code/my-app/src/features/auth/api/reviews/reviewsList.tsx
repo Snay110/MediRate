@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-import { useReviews } from "./hooks/useReviews";
+import { useReviews } from "../hooks/useReviews";
 
 export const ReviewsList = memo(() => {
   const { reviews, isLoading, error } = useReviews();

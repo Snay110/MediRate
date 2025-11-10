@@ -1,7 +1,7 @@
 import useSWR from "swr";
-import type { Doctor } from "../../doctorListApi";
+import type { Doctor } from "../../../doctor/doctorListApi";
 import { useParams } from "react-router-dom";
-import { getDoctorById } from "../../doctorListApi";
+import { getDoctorById } from "../../../doctor/doctorListApi";
 
 export function useDoctors() {
   const { id } = useParams<{ id: string }>();

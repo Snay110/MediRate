@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getReviews } from "../getReviews";
+import { getReviews } from "../reviews/getReviews";
 import { useParams } from "react-router-dom";
 
 export function useInputReviews() {

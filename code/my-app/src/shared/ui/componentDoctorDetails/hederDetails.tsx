@@ -1,4 +1,4 @@
-import type { Doctor } from "@/features/auth/api/doctorListApi";
+import type { Doctor } from "@/features/doctor/doctorListApi";
 
 export function HeaderDetails({ doctor }: { doctor: Doctor }) {
   return (

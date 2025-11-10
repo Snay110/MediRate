@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { getUserId } from "./userId";
+import { getUserId } from "../user/userId";
 import { mutate } from "swr";
-import { userToken } from "../userToken";
+import { userToken } from "../user/userToken";
 import { SUPABASE_URL, SUPABASE_KEY } from "@/shared/lib/supabase";
 
 export function AddReviews() {

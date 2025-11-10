@@ -1,7 +1,7 @@
 import { DoctorReviews } from "@/features/auth/api/reviews/reviews";
 import { AboutDoctor } from "@/shared/ui/componentDoctorDetails/aboutDoctor";
-import InputReviews from "@/shared/inputReviews";
-import { useDoctors } from "@/features/auth/api/reviews/hooks/useDoctors";
+import InputReviews from "@/features/auth/api/reviews/inputReviews";
+import { useDoctors } from "@/features/auth/api/hooks/useDoctors";
 import { Footer } from "@/shared/ui/footer";
 
 export default function DoctorDetailPage() {
