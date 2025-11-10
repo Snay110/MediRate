@@ -1,22 +1,11 @@
-import { useParams } from "react-router-dom";
-import { getDoctorById } from "@/features/auth/api/doctorListApi";
-import type { Doctor } from "@/features/auth/api/doctorListApi";
-import useSWR from "swr";
 import { DoctorReviews } from "@/features/auth/api/reviews/reviews";
 import { AboutDoctor } from "@/shared/ui/componentDoctorDetails/aboutDoctor";
 import InputReviews from "@/shared/inputReviews";
+import { useDoctors } from "@/features/auth/api/reviews/hooks/useDoctors";
 import { Footer } from "@/shared/ui/footer";
 
 export default function DoctorDetailPage() {
-  const { id } = useParams<{ id: string }>();
-
-  const {
-    data: doctor,
-    error,
-    isLoading,
-  } = useSWR<Doctor | null>(id ? ["doctor", id] : null, () =>
-    getDoctorById({ id: id! }),
-  );
+  const { doctor, isLoading, error, id } = useDoctors();
 
   if (!id)
     return (
