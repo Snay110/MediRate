@@ -14,7 +14,7 @@ export function AddReviews() {
       method: "POST",
       headers: {
         apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer${token}`,
         "Content-Type": "application/json",
       },
 

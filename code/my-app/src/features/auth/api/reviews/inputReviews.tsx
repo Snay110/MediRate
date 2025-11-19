@@ -1,7 +1,30 @@
 import { useInputReviews } from "@/features/auth/api/hooks/useInputReviews";
+import { useAddReviews } from "../hooks/useAddReviews";
+import { useParams } from "react-router-dom";
 
 export default function InputReviews() {
-  const { comment, setComment, handleSubmit } = useInputReviews();
+  const { comment, setComment } = useInputReviews();
+  const postReviews = useAddReviews();
+  const { id: doctorId } = useParams<{ id: string }>();
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!doctorId) return console.error("No doctor id");
+    if (!comment.trim()) return;
+
+    try {
+      await postReviews({
+        doctorId,
+        comment,
+        full_name: "Anonymous",
+        rating: 5,
+      });
+      setComment("");
+    } catch (err) {
+      console.error("Failed to post review", err);
+    }
+  }
+
   return (
     <form
       onSubmit={handleSubmit}

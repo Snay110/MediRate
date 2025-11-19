@@ -4,7 +4,7 @@ export async function fetchDoctor() {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/doctors?select=*`, {
     headers: {
       apikey: SUPABASE_KEY,
-      Authorization: `Bearer${SUPABASE_KEY}`,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
     },
   });
 

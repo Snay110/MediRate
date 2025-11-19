@@ -2,7 +2,7 @@ import { getReviews } from "./getReviews";
 import useSWR from "swr";
 import type { Review } from "@/features/doctor/doctorListApi";
 import { useState } from "react";
-import ReviewsList from "./reviewsList";
+import { _ReviewsItem } from "./reviewsItem";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function DoctorReviews({ id }: { id: string }) {
@@ -15,7 +15,7 @@ export function DoctorReviews({ id }: { id: string }) {
     error,
     isLoading,
   } = useSWR<Review[] | null>(["reviews", id], () =>
-    getReviews({ doctorId: id }),
+    getReviews({ doctorId: id })
   );
 
   if (isLoading)
@@ -39,10 +39,10 @@ export function DoctorReviews({ id }: { id: string }) {
 
   return (
     <>
-      <section className="max-w-xl mx-auto "></section>
+      
       <section className="mt-6 max-w-xl mx-auto flex flex-col   bg-white ">
         <AnimatePresence>
-          {reviews.slice(0, visibleCount).map((review, index) => (
+          {reviews.slice(0, visibleCount).map((review, ) => (
             <motion.div
               key={review.id}
               initial={{ opacity: 0, y: 40 }}
@@ -51,11 +51,10 @@ export function DoctorReviews({ id }: { id: string }) {
               transition={{
                 duration: 0.4,
                 ease: [0.25, 0.1, 0.25, 1],
-                delay: index * 0.05,
               }}
               className="mb-4 p-4 bg-gray-100 rounded shadow"
             >
-              <ReviewsList />
+              <_ReviewsItem key={review.id} review={review} />
             </motion.div>
           ))}
         </AnimatePresence>
